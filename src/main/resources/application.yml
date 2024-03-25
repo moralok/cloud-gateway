@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:27528}
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: allen
+          uri: lb://allen
+          predicates:
+            - Path=/allen/**
+          filters:
+            - StripPrefix=1
+        - id: dummy
+          uri: lb://dummy
+          predicates:
+            - Path=/dummy/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true

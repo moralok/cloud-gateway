@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+  cloud-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "27528:27528"
+    environment:
+      - EUREKA_URL=http://eureka-server:8761/eureka/
+    restart: always
